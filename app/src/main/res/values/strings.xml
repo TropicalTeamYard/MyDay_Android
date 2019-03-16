@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Tty Myday</string>
+    <string name="title_schedule">日程</string>
+    <string name="title_team">组织</string>
+    <string name="title_news">动态</string>
+    <string name="title_my">我的</string>
+    <string name="tab_home">概览</string>
+    <!--something with account-->
+    <string name="text_login">登录</string>
+    <string name="title_nologin_description">立即登录，解锁更多定制功能。</string>
+    <string name="text_account">账号</string>
+    <string name="text_password">密码</string>
+    <string name="title_login">登录MyDay</string>
+    <string name="text_forget_pw">忘记密码?</string>
+    <string name="text_use_local">使用本地账号</string>
+    <string name="text_register">注册</string>
+</resources>
