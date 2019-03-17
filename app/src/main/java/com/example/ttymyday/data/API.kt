@@ -4,7 +4,7 @@ object API{
     fun getDomain():String{
         if (MODE == "DEBUG"){
             //return "http://101.132.122.143:8080/board"
-            return "http://192.168.31.36:80/"
+            return "http://10.128.38.22:80/"
         } else {
             return ""
         }

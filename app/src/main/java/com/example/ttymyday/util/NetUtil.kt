@@ -36,7 +36,7 @@ object NetUtil{
                 throw NetworkErrorException("response status is $responseCode")
             }
 
-        } catch (e:Exception){
+        } catch (e:Throwable){
             e.printStackTrace()
         } finally {
             if (conn!=null){

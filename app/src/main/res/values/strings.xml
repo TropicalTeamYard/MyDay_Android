@@ -14,4 +14,6 @@
     <string name="text_forget_pw">忘记密码?</string>
     <string name="text_use_local">使用本地账号</string>
     <string name="text_register">注册</string>
+    <string name="text_nickname">昵称</string>
+    <string name="text_exitlogin">退出登录</string>
 </resources>

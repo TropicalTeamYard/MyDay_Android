@@ -37,12 +37,12 @@ class MyFragment : Fragment(),View.OnClickListener {
         if (DataSource.user.usertype =="#CLOUD"){
             tv_account.text = DataSource.user.nickname
             tv_account_description.text = "Hello ${DataSource.user.username}"
-            if (DataSource.userstate == false){
-                tv_account_description.setTextColor(Color.RED)
-                tv_account_description.text ="用户异常，请尝试重新登录"
-            } else if (DataSource.state == false) {
+            if (DataSource.state == false) {
                 tv_account_description.setTextColor(Color.RED)
                 tv_account_description.text = "网络异常"
+            } else if (DataSource.userstate == false){
+                tv_account_description.setTextColor(Color.RED)
+                tv_account_description.text ="用户异常，请尝试重新登录"
             }
         } else if (DataSource.user.usertype == "#LOCAL"){
             tv_account.text = "本地账户"
@@ -60,6 +60,8 @@ class MyFragment : Fragment(),View.OnClickListener {
         //顶部导航按钮
         if (v == my_toolbar){
             if (DataSource.user.usertype == "#CLOUD"){
+                val intent = Intent(context,UserDetailActivity::class.java)
+                startActivity(intent)
                 Log.d(TAG,"顶部导航栏单击，用户已登录")
             } else  {
                 //跳转到登录界面
