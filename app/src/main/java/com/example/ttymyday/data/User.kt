@@ -16,4 +16,12 @@ class User(){
     lateinit var username:String
     lateinit var nickname:String
     lateinit var token:String
+
+    val friendname:String
+    get() {
+        if (usertype == "#LOCAL")
+            return "#LOCAL"
+        else
+            return username
+    }
 }
