@@ -1,4 +1,4 @@
-package com.example.ttymyday
+package com.example.ttymyday.view
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
+import com.example.ttymyday.R
 import com.example.ttymyday.data.DataSource
 import kotlinx.android.synthetic.main.activity_user_detail.*
 
@@ -36,7 +37,7 @@ class UserDetailActivity : AppCompatActivity() ,View.OnClickListener{
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,"是的，注销",fun(dialog,which){
             DataSource.user.usertype="#NONE"
             DataSource.saveUser(this)
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             dialog.cancel()

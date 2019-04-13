@@ -1,20 +1,16 @@
-package com.example.ttymyday
+package com.example.ttymyday.view
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.example.ttymyday.R
 import com.example.ttymyday.data.DataSource
 import kotlinx.android.synthetic.main.fragment_my.*
-import kotlinx.android.synthetic.main.fragment_my.view.*
 
 
 class MyFragment : Fragment(),View.OnClickListener {
@@ -60,12 +56,12 @@ class MyFragment : Fragment(),View.OnClickListener {
         //顶部导航按钮
         if (v == my_toolbar){
             if (DataSource.user.usertype == "#CLOUD"){
-                val intent = Intent(context,UserDetailActivity::class.java)
+                val intent = Intent(context, UserDetailActivity::class.java)
                 startActivity(intent)
                 Log.d(TAG,"顶部导航栏单击，用户已登录")
             } else  {
                 //跳转到登录界面
-                val intent = Intent(context,LoginActivity::class.java)
+                val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
             }
         }

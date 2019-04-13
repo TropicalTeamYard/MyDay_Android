@@ -10,7 +10,7 @@ object API{
         }
     }
 
-    fun getRoute(region:RegionParam):String{
+    fun getRoute(region: RegionParam):String{
         //when-case expression
         val r:String = when(region){
             RegionParam.USER -> "api/user"
@@ -18,7 +18,7 @@ object API{
             RegionParam.GETINFO -> "api/getinfo"
             RegionParam.COURSE -> "api/course"
             RegionParam.SETINFO -> "api/setinfo"
-            RegionParam.MSGBOARD-> "api/msgboard"
+            RegionParam.MSGBOARD -> "api/msgboard"
             RegionParam.SHARED -> "api/shared"
         }
 

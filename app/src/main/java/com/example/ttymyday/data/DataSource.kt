@@ -1,13 +1,12 @@
 package com.example.ttymyday.data
 
 import android.content.Context
-import android.util.Log
 import com.example.ttymyday.model.ScheduleTag
 
 object DataSource
 {
 
-    var user:User = User()
+    var user: User = User()
     /**
      * [临时缓存信息] 网络状态
      */
@@ -28,10 +27,10 @@ object DataSource
 
     fun saveUser(context:Context){
         val dbHelper = DBHelper(context)
-        dbHelper.setSettingsValue("usertype",user.usertype)
-        dbHelper.setSettingsValue("username",user.username)
-        dbHelper.setSettingsValue("nickname",user.nickname)
-        dbHelper.setSettingsValue("token",user.token)
+        dbHelper.setSettingsValue("usertype", user.usertype)
+        dbHelper.setSettingsValue("username", user.username)
+        dbHelper.setSettingsValue("nickname", user.nickname)
+        dbHelper.setSettingsValue("token", user.token)
     }
 
     /**
@@ -48,7 +47,7 @@ object DataSource
         var currentIndex = dbHelper.getSettingsValue("schedule_tag_index","0").toInt()
         currentIndex +=1
 
-        val scheduleTag = ScheduleTag(-1,"category_$currentIndex",title,(owner?:user.friendname),"owner")
+        val scheduleTag = ScheduleTag(-1,"category_$currentIndex",title,(owner?: user.friendname),"owner")
 
         dbHelper.setScheduleTagValue(scheduleTag)
         dbHelper.setSettingsValue("schedule_tag_index",currentIndex.toString())

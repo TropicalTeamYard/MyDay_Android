@@ -1,12 +1,11 @@
-package com.example.ttymyday
+package com.example.ttymyday.view
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ttymyday.R
 
 
 class TeamFragment : Fragment() {

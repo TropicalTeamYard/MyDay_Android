@@ -1,4 +1,4 @@
-package com.example.ttymyday
+package com.example.ttymyday.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
+import com.example.ttymyday.R
 import com.example.ttymyday.data.DataSource
 import com.example.ttymyday.data.UserUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemS
             Log.d(TAG,"首次加载，usertype=${DataSource.user.usertype}")
             //说明用户并没有登录，将跳到登录界面，而且无法返回。
             if (DataSource.user.usertype == "#NONE"){
-                val intent = Intent(this,LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             } else if (DataSource.user.usertype =="#CLOUD") {
@@ -74,15 +75,15 @@ class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemS
     //region Events
     override fun onNavigationItemSelected(@NonNull menuItem: MenuItem): Boolean {
         when (menuItem.itemId){
-            R.id.navigation_schedule-> {
+            R.id.navigation_schedule -> {
                 switchFragment(0)
                 return true
             }
-            R.id.navigation_team->{
+            R.id.navigation_team ->{
                 switchFragment(1)
                 return true
             }
-            R.id.navigation_news->{
+            R.id.navigation_news ->{
                 switchFragment(2)
                 return true
             }

@@ -1,4 +1,4 @@
-package com.example.ttymyday
+package com.example.ttymyday.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ttymyday.R
 import com.example.ttymyday.data.DBHelper
 import com.example.ttymyday.data.DataSource
 import kotlinx.android.synthetic.main.fragment_schedule.*

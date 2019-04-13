@@ -160,8 +160,8 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
          */
         private const val STRUCT_SCHEDULE_TAG = "create table $NAME_SCHEDULE_TAG(id integer primary key autoincrement,name varchar(30),title varchar(20),owner varchar(20),permission varchar(10))"
 
-        private var _instance:DBHelper? = null
-        fun getInstance(context:Context):DBHelper {
+        private var _instance: DBHelper? = null
+        fun getInstance(context:Context): DBHelper {
             if (_instance == null)
                 _instance = DBHelper(context);
 
