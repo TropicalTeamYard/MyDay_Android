@@ -1,4 +1,4 @@
-package com.example.ttymyday.view
+package com.example.ttymyday.view.page
 
 import android.content.Intent
 import android.graphics.Color
@@ -29,26 +29,26 @@ class MyFragment : Fragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG,"usertype:${DataSource.user.usertype}")
-        if (DataSource.user.usertype =="#CLOUD"){
-            tv_account.text = DataSource.user.nickname
-            tv_account_description.text = "Hello ${DataSource.user.username}"
-            if (DataSource.state == false) {
-                tv_account_description.setTextColor(Color.RED)
-                tv_account_description.text = "网络异常"
-            } else if (DataSource.userstate == false){
-                tv_account_description.setTextColor(Color.RED)
-                tv_account_description.text ="用户异常，请尝试重新登录"
-            }
-        } else if (DataSource.user.usertype == "#LOCAL"){
-            tv_account.text = "本地账户"
-            tv_account_description.text="若要使用更多功能，请登录云账户"
-        } else {
-            tv_account.text =  getString(R.string.text_login)
-            tv_account_description.text = getString(R.string.title_nologin_description)
-        }
-
-        my_toolbar.setOnClickListener(this)
+//        Log.d(TAG,"usertype:${DataSource.user.usertype}")
+//        if (DataSource.user.usertype =="#CLOUD"){
+//            tv_account.text = DataSource.user.nickname
+//            tv_account_description.text = "Hello ${DataSource.user.username}"
+//            if (DataSource.state == false) {
+//                tv_account_description.setTextColor(Color.RED)
+//                tv_account_description.text = "网络异常"
+//            } else if (DataSource.userstate == false){
+//                tv_account_description.setTextColor(Color.RED)
+//                tv_account_description.text ="用户异常，请尝试重新登录"
+//            }
+//        } else if (DataSource.user.usertype == "#LOCAL"){
+//            tv_account.text = "本地账户"
+//            tv_account_description.text="若要使用更多功能，请登录云账户"
+//        } else {
+//            tv_account.text =  getString(R.string.text_login)
+//            tv_account_description.text = getString(R.string.title_nologin_description)
+//        }
+//
+//        my_toolbar.setOnClickListener(this)
     }
 
     //region events

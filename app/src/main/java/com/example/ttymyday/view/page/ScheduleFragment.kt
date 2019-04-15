@@ -1,4 +1,4 @@
-package com.example.ttymyday.view
+package com.example.ttymyday.view.page
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,19 +12,7 @@ import com.example.ttymyday.data.DataSource
 import kotlinx.android.synthetic.main.fragment_schedule.*
 
 
-class ScheduleFragment : Fragment(),View.OnClickListener {
-    override fun onClick(v: View?) {
-        when(v){
-            btn_test_addc->{
-                DataSource.createScheduleTag(context!!,edt_test_c.text.toString())
-                Log.d(TAG,"click the btn_test_addc")
-            }
-            btn_test_printc->{
-                DBHelper.getInstance(context!!).printScheduleTag()
-            }
-        }
-
-    }
+class ScheduleFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +28,8 @@ class ScheduleFragment : Fragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        btn_test_addc.setOnClickListener(this)
-        btn_test_printc.setOnClickListener(this)
+        //btn_test_addc.setOnClickListener(this)
+        //btn_test_printc.setOnClickListener(this)
         super.onViewCreated(view, savedInstanceState)
     }
 

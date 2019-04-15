@@ -1,4 +1,4 @@
-package com.example.ttymyday.view
+package com.example.ttymyday.view.page
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.ttymyday.R
 
-
-class TeamFragment : Fragment() {
-
+class NewsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -19,8 +18,6 @@ class TeamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_team, container, false)
+        return inflater.inflate(R.layout.fragment_news, container, false)
     }
-
-
 }

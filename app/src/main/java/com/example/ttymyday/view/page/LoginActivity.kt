@@ -1,4 +1,4 @@
-package com.example.ttymyday.view
+package com.example.ttymyday.view.page
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
