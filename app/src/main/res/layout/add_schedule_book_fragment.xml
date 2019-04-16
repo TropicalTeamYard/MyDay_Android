@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.page.AddScheduleBookFragment">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+            <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_emoji_black_24dp"/>
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:hint="@string/text_add_scheduletitle"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_icon_add_schedule_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginHorizontal="16dp" >
+            <Button
+                    android:id="@+id/btn_cancel_add_schedule_book"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_margin="1dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:text="取消"/>
+            <Button
+                    android:id="@+id/btn_ok_add_schedule_book"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_margin="1dp"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:textColor="@color/colorPrimary"
+
+                    android:text="确认添加"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

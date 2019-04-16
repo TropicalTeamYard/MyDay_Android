@@ -6,4 +6,5 @@
     <color name="colorBlack">#000000</color>
     <color name="colorDisplay">#AAAAAA</color>
     <color name="colorNormal">#CCCCCC</color>
+    <color name="colorHoverGray">#22000000</color>
 </resources>
