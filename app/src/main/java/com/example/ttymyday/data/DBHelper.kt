@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.Context
+import android.database.sqlite.SQLiteException
 import android.util.Log
 import com.example.ttymyday.model.ScheduleTag
 import java.lang.AssertionError
@@ -39,7 +40,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         } else{
             v = default
         }
-        cursor.close();
+
+        try {
+            cursor.close()
+            db.close()
+        }catch (e:SQLiteException){
+            e.printStackTrace()
+        }
+
         return v
     }
 
@@ -47,7 +55,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         val readdb:SQLiteDatabase = this.readableDatabase
         val writedb:SQLiteDatabase = this.writableDatabase
         val cursor = readdb.rawQuery("select * from $NAME_NAME_VALUE where name=?", arrayOf(name))
-        var contentValues = ContentValues()
+        val contentValues = ContentValues()
         contentValues.put("value",value)
         if (cursor.count > 0){
             writedb.update(NAME_NAME_VALUE,contentValues,"name = ?", arrayOf(name))
@@ -57,7 +65,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
             writedb.insert(NAME_NAME_VALUE,null,contentValues)
             //writedb.execSQL("insert into $NAME_NAME_VALUE (name,value) values (?,?)", arrayOf(name,value))
         }
-        cursor.close()
+
+        try {
+            cursor.close()
+            readdb.close()
+            writedb.close()
+        } catch (e:SQLiteException){
+            e.printStackTrace()
+        }
     }
 
     //var user:User = User()
@@ -81,10 +96,18 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         if (scheduleTag.owner != null){
             contentValues.put("owner",scheduleTag.owner)
         }
-        if (scheduleTag.permission != null){
-            contentValues.put("permission",scheduleTag.permission)
+        if (scheduleTag.icon != null){
+            contentValues.put("icon",scheduleTag.icon)
         }
-
+        if (scheduleTag.users != null){
+            contentValues.put("users",scheduleTag.users)
+        }
+        if (scheduleTag.create_time != null){
+            contentValues.put("create_time",scheduleTag.create_time)
+        }
+        if (scheduleTag.update_time != null){
+            contentValues.put("update_time",scheduleTag.update_time)
+        }
 
 //        scheduleTag.name ?:contentValues.put("name",scheduleTag.name)
 //        scheduleTag.title?:contentValues.put("title",scheduleTag.title)
@@ -99,25 +122,61 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 db.update(NAME_SCHEDULE_TAG,contentValues,"id = ?", arrayOf(scheduleTag.id.toString()))
             }
         }
+
+        try {
+            db.close()
+        }catch (e:SQLiteException){
+            e.printStackTrace()
+        }
     }
+//
+//    fun printScheduleTag(){
+//        val db:SQLiteDatabase = this.readableDatabase
+//        val cursor = db.rawQuery("select * from $NAME_SCHEDULE_TAG", arrayOf<String>())
+//        Log.d(TAG,"----SCHEDULE_TAG----")
+//        if (cursor.moveToFirst() && cursor.count > 0){
+//            do {
+//                Log.d(TAG,"id:${cursor.getInt(cursor.getColumnIndex("id"))} name:${cursor.getString(cursor.getColumnIndex("name"))} title: ${cursor.getString(cursor.getColumnIndex("title"))} owner: ${cursor.getString(cursor.getColumnIndex("owner"))} permission: ${cursor.getString(cursor.getColumnIndex("permission"))}")
+//
+//            } while (cursor.moveToNext())
+//        }
+//
+//        cursor.close()
+//    }
+//    //endregion
 
-    fun printScheduleTag(){
+    fun getScheduleTagValues():ArrayList<ScheduleTag>{
         val db:SQLiteDatabase = this.readableDatabase
+        val list:ArrayList<ScheduleTag> = ArrayList()
         val cursor = db.rawQuery("select * from $NAME_SCHEDULE_TAG", arrayOf<String>())
-        Log.d(TAG,"----SCHEDULE_TAG----")
-        if (cursor.moveToFirst() && cursor.count > 0){
-            do {
-                Log.d(TAG,"id:${cursor.getInt(cursor.getColumnIndex("id"))} name:${cursor.getString(cursor.getColumnIndex("name"))} title: ${cursor.getString(cursor.getColumnIndex("title"))} owner: ${cursor.getString(cursor.getColumnIndex("owner"))} permission: ${cursor.getString(cursor.getColumnIndex("permission"))}")
 
-            } while (cursor.moveToNext())
+        if (cursor.moveToFirst() && cursor.count > 0){
+            do{
+                list.add(ScheduleTag(
+                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getString(cursor.getColumnIndex("owner")),
+                    cursor.getInt(cursor.getColumnIndex("icon")),
+                    cursor.getString(cursor.getColumnIndex("users")),
+                    cursor.getString(cursor.getColumnIndex("create_time")),
+                    cursor.getString(cursor.getColumnIndex("update_time"))
+                ))
+            }while (cursor.moveToNext())
         }
 
-        cursor.close()
+        try {
+            cursor.close()
+            db.close()
+        }catch (e:SQLiteException){
+            e.printStackTrace()
+        }
+
+        return list
     }
-    //endregion
 
     companion object {
-        private const val TAG = "DBHelper"
+        const val TAG = "DBH"
         private const val DB_NAME = "myday.db"
         private const val DB_VERSION=1
 
@@ -156,9 +215,11 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
          * title: 显示名称
          * owner: 拥有者名称
          * icon：图标
-         * permission: 可访问级别(owner,readonly,readwrite)
+         * users: 使用用户列表(包括权限和用户id)
+         * create_time: 创建时间
+         * update_time: 最近更新时间
          */
-        private const val STRUCT_SCHEDULE_TAG = "create table $NAME_SCHEDULE_TAG(id integer primary key autoincrement,name varchar(30),title varchar(20),owner varchar(20),permission varchar(10))"
+        private const val STRUCT_SCHEDULE_TAG = "create table $NAME_SCHEDULE_TAG(id integer primary key autoincrement,name varchar(30),title varchar(20),owner varchar(20),icon integer,users text,create_time varchar(20),update_time varchar(20))"
 
         private var _instance: DBHelper? = null
         fun getInstance(context:Context): DBHelper {
@@ -167,6 +228,8 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
 
             return _instance ?:throw AssertionError("An error occured!!!")
         }
+
+        const val SCHEDULE_TAG_INDEX = "schedule_tag_index"
     }
 }
 

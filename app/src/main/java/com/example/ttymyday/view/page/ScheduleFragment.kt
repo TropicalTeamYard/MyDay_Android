@@ -2,6 +2,9 @@ package com.example.ttymyday.view.page
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.app.Dialog
+import android.app.SearchManager
+import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Point
@@ -19,7 +22,10 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
 import java.lang.Math.abs
 
 
-class ScheduleFragment : Fragment(),View.OnTouchListener{
+class ScheduleFragment : Fragment(),View.OnTouchListener,DialogInterface.OnCancelListener{
+    override fun onCancel(dialog: DialogInterface?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     var startPoint: PointF?= null
 
@@ -91,16 +97,16 @@ class ScheduleFragment : Fragment(),View.OnTouchListener{
      */
     private fun handleTouchEvent(v:View?,show:Boolean,click:Boolean = false){
         when(v){
-            test_schedule_item1->{
-                if (show){
-                    test_schedule_item1.setBackgroundColor(context!!.getColor(R.color.colorHoverGray))
-                } else{
-                    test_schedule_item1.setBackgroundColor(Color.TRANSPARENT)
-                }
-                if (click){
-                    Log.d(TAG,"click:: ${v.toString()}")
-                }
-            }
+//            test_schedule_item1->{
+//                if (show){
+//                    test_schedule_item1.setBackgroundColor(context!!.getColor(R.color.colorHoverGray))
+//                } else{
+//                    test_schedule_item1.setBackgroundColor(Color.TRANSPARENT)
+//                }
+//                if (click){
+//                    Log.d(TAG,"click:: ${v.toString()}")
+//                }
+//            }
             btn_schedule_add_book->{
                 if (click){
                     Log.d(TAG,"click:: 添加日程清单")
@@ -116,3 +122,5 @@ class ScheduleFragment : Fragment(),View.OnTouchListener{
         const val MAX_TOUCH_DISTANCE = 80
     }
 }
+
+

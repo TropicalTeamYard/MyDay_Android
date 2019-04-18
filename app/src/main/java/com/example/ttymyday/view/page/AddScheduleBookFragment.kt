@@ -1,11 +1,16 @@
 package com.example.ttymyday.view.page
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
@@ -14,14 +19,40 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.ttymyday.R
+import com.example.ttymyday.provider.ScheduleProvider
+import com.example.ttymyday.util.NameLengthFilter
 import com.example.ttymyday.view.adapter.IconAdapter
 import com.example.ttymyday.view.converter.ColorIconConverter
 import kotlinx.android.synthetic.main.add_schedule_book_fragment.*
 import java.util.*
 
-class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,IconAdapter.OnItemClickListener{
+class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,IconAdapter.OnItemClickListener,TextWatcher{
+
+    override fun afterTextChanged(s: Editable?) {
+
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    @SuppressLint("ResourceAsColor")
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        if (count == 0){
+            btn_ok_add_schedule_book.isEnabled = false
+            btn_ok_add_schedule_book.setTextColor(context!!.getColor(R.color.colorNormal))
+        } else {
+            btn_ok_add_schedule_book.isEnabled = true
+            btn_ok_add_schedule_book.setTextColor(context!!.getColor(R.color.colorPrimary))
+        }
+
+    }
+
+    private var selectedIndex:Int = 0
+
     override fun onItemClick(v: View?, position: Int) {
         Log.d(TAG,"你点击了第 ${position}个图标")
+        selectedIndex = position
+        img_icon_add_schedule_book.setImageResource(ColorIconConverter().getIconRes(selectedIndex))
     }
 
     override fun onClick(v: View?) {
@@ -29,9 +60,15 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,IconAdapt
             btn_cancel_add_schedule_book->{
                 dialog.cancel()
             }
+            btn_ok_add_schedule_book->{
+                val provider = ScheduleProvider(context!!)
+                val tag = provider.createScheduleTag(selectedIndex,edt_title_add_schedule_book.text.toString())
+
+                Log.d(TAG,"添加了一条日程清单: $tag")
+                dialog.dismiss()
+            }
         }
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -57,13 +94,15 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,IconAdapt
         init()
         btn_cancel_add_schedule_book.setOnClickListener(this)
         btn_ok_add_schedule_book.setOnClickListener(this)
+        edt_title_add_schedule_book.filters = arrayOf(NameLengthFilter(15))
     }
 
     private fun init(){
         val layoutManager:RecyclerView.LayoutManager = GridLayoutManager(context,6)
         recyclerView_icon_add_schedule_book.layoutManager = layoutManager
         recyclerView_icon_add_schedule_book.adapter = IconAdapter(ColorIconConverter(),this)
-
+        //btn_ok_add_schedule_book.setOnFocusChangeListener(this)
+        edt_title_add_schedule_book.addTextChangedListener(this)
     }
 
     companion object {

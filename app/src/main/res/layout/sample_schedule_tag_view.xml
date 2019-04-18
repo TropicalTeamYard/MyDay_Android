@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/test_schedule_item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
+        android:paddingVertical="4dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground">
+    <ImageView
+            android:id="@+id/img_icon_schedule_tag"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/ic_color_info"/>
+    <TextView
+            android:id="@+id/tbx_title_schedule_tag"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="学习"
+            android:gravity="center_vertical"/>
+    <ImageView
+            android:id="@+id/img_alarm_schedule_tag"
+            android:layout_width="16dp"
+            android:layout_height="match_parent"
+            android:tint="@color/colorDisplay"
+            android:src="@drawable/ic_notifications_black_24dp"
+    />
+    <TextView
+            android:id="@+id/tbx_alarm_count_schedule_tag"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:text="99+"/>
+    <ImageView
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:tint="@color/colorDisplay"
+            android:padding="6dp"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:gravity="center"/>
+</LinearLayout>
