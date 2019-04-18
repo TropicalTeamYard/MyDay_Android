@@ -9,11 +9,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleProvider(private var context: Context){
+
     /**
      * 创建一个日程标签，依赖settings::schedule_tag_index 和 user.username
      */
     fun createScheduleTag(icon:Int,title:String):ScheduleTag{
-
         //TODO("当联网时，重写该层逻辑")
         //假设当前仅属于本地
         val helper= DBHelper(context)
@@ -33,5 +33,9 @@ class ScheduleProvider(private var context: Context){
     fun getScheduleTags():ArrayList<ScheduleTag>{
         val helper =DBHelper(context)
         return helper.getScheduleTagValues()
+    }
+
+    companion object {
+        const val TAG_COUNT_MAX = 15
     }
 }

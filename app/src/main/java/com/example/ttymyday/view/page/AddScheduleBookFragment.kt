@@ -1,15 +1,12 @@
 package com.example.ttymyday.view.page
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
-import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
@@ -22,11 +19,13 @@ import com.example.ttymyday.R
 import com.example.ttymyday.provider.ScheduleProvider
 import com.example.ttymyday.util.NameLengthFilter
 import com.example.ttymyday.view.adapter.IconAdapter
+import com.example.ttymyday.view.adapter.OnRItemClickListener
 import com.example.ttymyday.view.converter.ColorIconConverter
 import kotlinx.android.synthetic.main.add_schedule_book_fragment.*
-import java.util.*
 
-class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,IconAdapter.OnItemClickListener,TextWatcher{
+class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemClickListener,TextWatcher{
+
+    private var mListener:DialogInterface.OnDismissListener? = null
 
     override fun afterTextChanged(s: Editable?) {
 
@@ -97,10 +96,22 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,IconAdapt
         edt_title_add_schedule_book.filters = arrayOf(NameLengthFilter(15))
     }
 
+    fun setOnDismissListener(listener:DialogInterface.OnDismissListener){
+        mListener = listener
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        mListener?.onDismiss(dialog)
+    }
+
     private fun init(){
         val layoutManager:RecyclerView.LayoutManager = GridLayoutManager(context,6)
         recyclerView_icon_add_schedule_book.layoutManager = layoutManager
-        recyclerView_icon_add_schedule_book.adapter = IconAdapter(ColorIconConverter(),this)
+        val adapter = IconAdapter(ColorIconConverter())
+        adapter.setOnRItemClickListener(this)
+        recyclerView_icon_add_schedule_book.adapter = adapter
+
         //btn_ok_add_schedule_book.setOnFocusChangeListener(this)
         edt_title_add_schedule_book.addTextChangedListener(this)
     }

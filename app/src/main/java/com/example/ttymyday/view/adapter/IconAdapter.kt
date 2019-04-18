@@ -10,9 +10,10 @@ import com.example.ttymyday.R
 import com.example.ttymyday.view.converter.IconConverter
 import kotlinx.android.synthetic.main.sample_icon_view.view.*
 
-class IconAdapter(var converter:IconConverter,var mListener:OnItemClickListener): RecyclerView.Adapter<IconAdapter.ViewHolder>(){
+class IconAdapter(var converter:IconConverter): RecyclerView.Adapter<IconAdapter.ViewHolder>(){
 
     lateinit var context: Context
+    private var mListener: OnRItemClickListener? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         context = p0.context
@@ -27,14 +28,17 @@ class IconAdapter(var converter:IconConverter,var mListener:OnItemClickListener)
         p0.imageView.setImageResource(converter.getIconRes(p1))
     }
 
-    interface OnItemClickListener: View.OnClickListener{
-        fun onItemClick(v:View?,position:Int)
+//    interface OnItemClickListener: View.OnClickListener{
+//        fun onItemClick(v:View?,position:Int)
+//    }
+
+    fun setOnRItemClickListener(listener: OnRItemClickListener){
+        mListener = listener
     }
 
-
-    inner class ViewHolder(v: View,var onItemClickListener:OnItemClickListener):RecyclerView.ViewHolder(v),View.OnClickListener{
+    inner class ViewHolder(v: View,var listener:OnRItemClickListener?):RecyclerView.ViewHolder(v),View.OnClickListener{
         override fun onClick(v: View?) {
-            onItemClickListener.onItemClick(v,layoutPosition)
+            listener?.onItemClick(v,layoutPosition)
         }
 
         var imageView: ImageView
