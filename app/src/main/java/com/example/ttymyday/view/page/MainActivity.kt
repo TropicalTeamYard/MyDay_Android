@@ -18,79 +18,45 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemSelectedListener {
 
     //region Fields And Function With navigation
-    private lateinit var fragments:Array<Fragment>
     private var fragmentindex:Int = 0
 
-    private fun switchFragment(index:Int){
-        if (index != fragmentindex){
-            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-            transaction.hide(fragments[fragmentindex])
-            if (!fragments[index].isAdded){
-                transaction.add(id.contentView,fragments[index])
-            }
-            transaction.show(fragments[index]).commitAllowingStateLoss()
 
-            tbx_main_title.text = when(index){
-                0->{getString(string.title_home)}
-                1->{getString(string.title_schedule)}
-                2->{getString(string.title_team)}
-                3->{getString(string.title_news)}
-                4->{getString(string.title_my)}
-                else -> "null"
-            }
-        }
-
-        fragmentindex = index
+    fun setDefaultFragment(){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentView,HomeFragment()).commit()
     }
+
+    fun switchFragment(index:Int)
+    {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentView,when(index){
+            0->HomeFragment()
+            1->ScheduleFragment()
+            2->TeamFragment()
+            3->NewsFragment()
+            4->MyFragment()
+            else->Fragment()
+        }).commit()
+    }
+
+
     //endregion
 
-    private fun initFragment(){
-        val homeFragment:Fragment = HomeFragment()
-        val scheduleFragment: Fragment = ScheduleFragment()
-        val teamFragment: Fragment = TeamFragment()
-        val newsFragment: Fragment = NewsFragment()
-        val myFragment: Fragment = MyFragment()
-        fragments = arrayOf<Fragment>(homeFragment, scheduleFragment,teamFragment,newsFragment,myFragment)
-        fragmentindex = 0
-        switchFragment(0)
-//        supportFragmentManager.beginTransaction()
-//            .replace(id.contentView,fragments[fragmentindex])
-//            .show(fragments[fragmentindex])
-//            .commit()
-        navigation.setOnNavigationItemSelectedListener(this)
-    }
-
+    //region Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
+        //initFragment()
+        setDefaultFragment()
+        navigation.setOnNavigationItemSelectedListener(this)
 
-        initFragment()
-
-        //region 判断是否已经加载，此处存放初次加载的代码
-//        if (!DataSource.isLoad){
-//            DataSource.isLoad = true
-//            DataSource.loadUser(this)
-//            Log.d(TAG,"首次加载，usertype=${DataSource.user.usertype}")
-//            //说明用户并没有登录，将跳到登录界面，而且无法返回。
-//            if (DataSource.user.usertype == "#NONE"){
-//                val intent = Intent(this, LoginActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                startActivity(intent)
-//            } else if (DataSource.user.usertype =="#CLOUD") {
-//                Log.d(TAG,"正在验证自动登录")
-//                UserUtil.autoLogin()
-//            }
-//        }
-        //endregion
+        //kotlin.run { DataSource.loadScheduleTag(this) }
+        Log.d(TAG,"加载日程标签信息.")
     }
 
-    override fun onResume() {
-        super.onResume()
-        navigation.setOnNavigationItemSelectedListener (this)
-    }
 
-    //region Events
     override fun onNavigationItemSelected(@NonNull menuItem: MenuItem): Boolean {
+        Log.d(TAG,"点击item")
         when (menuItem.itemId){
             id.navigation_home ->{
                 switchFragment(0)
