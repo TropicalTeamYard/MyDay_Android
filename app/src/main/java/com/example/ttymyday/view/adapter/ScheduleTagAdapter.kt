@@ -15,8 +15,8 @@ import com.example.ttymyday.provider.ScheduleProvider
 import com.example.ttymyday.view.converter.IconConverter
 import kotlinx.android.synthetic.main.sample_schedule_tag_view.view.*
 
-class ScheduleTagAdapter(var provider:ScheduleProvider,var converter:IconConverter):RecyclerView.Adapter<ScheduleTagAdapter.ViewHolder>(){
-    lateinit var tags:ArrayList<ScheduleTag>
+class ScheduleTagAdapter(var tags:ArrayList<ScheduleTag>,var converter:IconConverter):RecyclerView.Adapter<ScheduleTagAdapter.ViewHolder>(){
+    //lateinit var tags:ArrayList<ScheduleTag>
     var mListener:OnRItemClickListener? = null
 
 
@@ -28,7 +28,6 @@ class ScheduleTagAdapter(var provider:ScheduleProvider,var converter:IconConvert
     }
 
     override fun getItemCount(): Int {
-        tags = provider.getScheduleTags()
         return tags.size
     }
 

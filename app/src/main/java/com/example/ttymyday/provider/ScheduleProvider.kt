@@ -8,7 +8,20 @@ import com.example.ttymyday.util.TimeUtil
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScheduleProvider(private var context: Context){
+/**
+ * @param context 依赖的上下文
+ * @param tags 需要加载的对象
+ */
+class ScheduleProvider(private var context: Context,var tags:ArrayList<ScheduleTag>){
+
+    /**
+     * 初始化[tags],即从数据库中读取数据
+     */
+    fun initialize()
+    {
+        val helper = DBHelper(context)
+        helper.fillScheduleTag(tags)
+    }
 
     /**
      * 创建一个日程标签，依赖settings::schedule_tag_index 和 user.username
@@ -25,14 +38,13 @@ class ScheduleProvider(private var context: Context){
         index++
 
         val scheduleTag = ScheduleTag(-1,"#LOCAL.$index",title,"#LOCAL",icon,"",TimeUtil.toDateTimeString(Date()),TimeUtil.toDateTimeString(Date()))
+        //请求数据库添加一条记录
         helper.setScheduleTagValue(scheduleTag)
 
-        return scheduleTag
-    }
+        //向数据源添加一条记录
+        tags.add(scheduleTag)
 
-    fun getScheduleTags():ArrayList<ScheduleTag>{
-        val helper =DBHelper(context)
-        return helper.getScheduleTagValues()
+        return scheduleTag
     }
 
     companion object {

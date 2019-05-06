@@ -5,17 +5,27 @@ import com.example.ttymyday.model.ScheduleTag
 
 object DataSource
 {
+    /**
+     * 临时缓存-用户信息
+     */
     var user: User = User()
     /**
-     * [临时缓存信息] 网络状态
+     * 临时缓存-网络状态
      */
     var state:Boolean=true
     /**
-     * [临时缓存信息] 用户状态
+     * 临时缓存-用户状态
      */
     var userstate:Boolean = true
 
     var isLoad = false
+
+    var isTagsLoaded = false
+    /**
+     * 临时缓存-日程标签
+     */
+    var tags:ArrayList<ScheduleTag> = ArrayList()
+
     fun loadUser(context:Context) {
         val dbHelper = DBHelper(context)
         user.usertype = dbHelper.getSettingsValue("usertype","#NONE")

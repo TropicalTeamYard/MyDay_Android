@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.ttymyday.R
+import com.example.ttymyday.data.DataSource
 import com.example.ttymyday.provider.ScheduleProvider
 import com.example.ttymyday.util.NameLengthFilter
 import com.example.ttymyday.view.adapter.IconAdapter
@@ -60,7 +61,7 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemCl
                 dialog.cancel()
             }
             btn_ok_add_schedule_book->{
-                val provider = ScheduleProvider(context!!)
+                val provider = ScheduleProvider(context!!,DataSource.tags)
                 val tag = provider.createScheduleTag(selectedIndex,edt_title_add_schedule_book.text.toString())
 
                 Log.d(TAG,"添加了一条日程清单: $tag")

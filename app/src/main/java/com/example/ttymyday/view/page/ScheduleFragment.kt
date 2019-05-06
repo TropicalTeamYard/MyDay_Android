@@ -34,7 +34,10 @@ import java.lang.Math.abs
 
 class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener,DialogInterface.OnDismissListener{
     override fun onDismiss(dialog: DialogInterface?) {
+        Log.d(TAG,"dialog::正确关闭对话框")
         updateItemState()
+        //由于绑定了arrayList,所以不需要通知。
+        //recyclerView_schedule_tag.adapter!!.notifyDataSetChanged()
     }
 
     override fun onItemClick(v: View?, position: Int) {
@@ -52,44 +55,6 @@ class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener,Di
         }
     }
 
-//    var startPoint: PointF?= null
-//
-//    @SuppressLint("ClickableViewAccessibility")
-//    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//        //Log.d(TAG,"onTouch:: ${v.toString()}")
-//        //Log.d(TAG,"action:: ${event?.action}")
-//        if (event?.action == MotionEvent.ACTION_DOWN ||
-//            event?.action == MotionEvent.ACTION_UP ||
-//            event?.action == MotionEvent.ACTION_MOVE ||
-//            event?.action == MotionEvent.ACTION_CANCEL
-//        )
-//            if (event.action == MotionEvent.ACTION_DOWN) {
-//                Log.d(TAG, "onTouch:: Pressed")
-//                startPoint = PointF(event.x, event.y)
-//                handleTouchEvent(v, true)
-//            } else if (event.action == MotionEvent.ACTION_MOVE) {
-//                //Log.d(TAG,"onTouch:: Move")
-//                if (startPoint != null) {
-//                    //val newPoint:PointF = PointF(event.x,event.y)
-//                    if (abs(event.x - startPoint!!.x) > MAX_TOUCH_DISTANCE || abs(event.y - startPoint!!.y) > MAX_TOUCH_DISTANCE) {
-//                        startPoint = null
-//                        handleTouchEvent(v, false)
-//                    }
-//                }
-//            } else {
-//                Log.d(TAG, "onTouch:: Released")
-//
-//                if (startPoint != null) {
-//                    startPoint = null
-//                    handleTouchEvent(v, false, true)
-//                } else {
-//                    handleTouchEvent(v, false)
-//                }
-//                //test_schedule_item1.setBackgroundColor(Color.TRANSPARENT)
-//            }
-//
-//        return false
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,7 +70,15 @@ class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener,Di
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = recyclerView_schedule_tag
-        val adapter = ScheduleTagAdapter(ScheduleProvider(context!!),ColorIconConverter())
+
+        val provider:ScheduleProvider = ScheduleProvider(context!!,DataSource.tags)
+        if (!DataSource.isTagsLoaded){
+            DataSource.isTagsLoaded = true
+            provider.initialize()
+        }
+
+        val adapter = ScheduleTagAdapter(DataSource.tags,ColorIconConverter())
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context,1,false)
 
@@ -116,10 +89,9 @@ class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener,Di
     }
 
 
-
     private fun updateItemState(){
-        val itemCount = recyclerView_schedule_tag.adapter!!.itemCount
-        card_my_schedule.widget_card_view_tbx_display_title.text = "我的日程清单(${itemCount})"
+        val itemCount = DataSource.tags.size
+        card_my_schedule.widget_card_view_tbx_display_title.text = "${context!!.getString(R.string.title_myschedule)}(${itemCount})"
         if (itemCount >= ScheduleProvider.TAG_COUNT_MAX){
             btn_schedule_add_book.visibility = View.GONE
         } else {
@@ -127,33 +99,6 @@ class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener,Di
         }
 
     }
-//    /**
-//     * 处理Touch事件
-//     * @param v Touch的视图
-//     * @param show 是否正处于点击的范围内
-//     * @param click 是否相应鼠标点击的事件
-//     */
-//    private fun handleTouchEvent(v:View?,show:Boolean,click:Boolean = false){
-//        when(v){
-////            test_schedule_item1->{
-////                if (show){
-////                    test_schedule_item1.setBackgroundColor(context!!.getColor(R.color.colorHoverGray))
-////                } else{
-////                    test_schedule_item1.setBackgroundColor(Color.TRANSPARENT)
-////                }
-////                if (click){
-////                    Log.d(TAG,"click:: ${v.toString()}")
-////                }
-////            }
-//            btn_schedule_add_book->{
-//                if (click){
-//                    Log.d(TAG,"click:: 添加日程清单")
-//                    val fragment = AddScheduleBookFragment()
-//                    fragment.show(this.fragmentManager,"添加留言")
-//                }
-//            }
-//        }
-//    }
 
     companion object {
         const val TAG = "ScheduleFragment"

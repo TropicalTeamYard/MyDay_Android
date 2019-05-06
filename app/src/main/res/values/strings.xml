@@ -21,6 +21,7 @@
     <!--something with schedule-->
     <string name="text_add_schedulebook">添加日程列表</string>
     <string name="text_add_scheduletitle">输入日程列表标题</string>
+    <string name="title_myschedule">我的日程清单</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

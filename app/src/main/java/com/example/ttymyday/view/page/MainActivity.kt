@@ -6,6 +6,7 @@ import android.support.annotation.NonNull
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
@@ -13,73 +14,79 @@ import com.example.ttymyday.R
 import com.example.ttymyday.R.*
 import com.example.ttymyday.data.DataSource
 import com.example.ttymyday.data.UserUtil
+import com.example.ttymyday.view.adapter.MainFragmentAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
-    //region Fields And Function With navigation
-    private var fragmentindex:Int = 0
+    private lateinit var adapter:MainFragmentAdapter
 
-
-    fun setDefaultFragment(){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.contentView,HomeFragment()).commit()
-    }
-
-    fun switchFragment(index:Int)
-    {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.contentView,when(index){
-            0->HomeFragment()
-            1->ScheduleFragment()
-            2->TeamFragment()
-            3->NewsFragment()
-            4->MyFragment()
-            else->Fragment()
-        }).commit()
-    }
-
-
-    //endregion
-
-    //region Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
-        //initFragment()
-        setDefaultFragment()
-        navigation.setOnNavigationItemSelectedListener(this)
+        adapter = MainFragmentAdapter(supportFragmentManager)
+        contentView.adapter = adapter
+        contentView.isScroll = true
 
-        //kotlin.run { DataSource.loadScheduleTag(this) }
-        Log.d(TAG,"加载日程标签信息.")
+        contentView.addOnPageChangeListener(this)
+        navigation.setOnNavigationItemSelectedListener(this)
     }
 
-
+    //events
     override fun onNavigationItemSelected(@NonNull menuItem: MenuItem): Boolean {
-        Log.d(TAG,"点击item")
-        when (menuItem.itemId){
-            id.navigation_home ->{
-                switchFragment(0)
-                return true
+        return when(menuItem.itemId){
+            R.id.navigation_home->{
+                contentView.currentItem = 0
+                true
             }
-            id.navigation_schedule -> {
-                switchFragment(1)
-                return true
+            R.id.navigation_schedule->{
+                contentView.currentItem = 1
+                true
             }
-            id.navigation_team ->{
-                switchFragment(2)
-                return true
+            R.id.navigation_team->{
+                contentView.currentItem = 2
+                true
             }
-            id.navigation_news ->{
-                switchFragment(3)
-                return true
+            R.id.navigation_news->{
+                contentView.currentItem = 3
+                true
             }
-            id.navigation_my -> {
-                switchFragment(4)
-                return true
+            R.id.navigation_my ->{
+                contentView.currentItem = 4
+                true
             }
-            else ->{return false}
+            else -> false
         }
+    }
+
+    override fun onPageScrollStateChanged(p0: Int) {
+
+    }
+
+    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+    }
+
+    override fun onPageSelected(p0: Int) {
+
+
+        tbx_main_title.text = when(p0){
+            0-> getString(R.string.title_home)
+            1->getString(R.string.title_schedule)
+            2->getString(R.string.title_team)
+            3-> getString(R.string.title_news)
+            4->getString(R.string.title_my)
+            else->"unset"
+        }
+
+        navigation.selectedItemId = when(p0){
+            0-> R.id.navigation_home
+            1->R.id.navigation_schedule
+            2->R.id.navigation_team
+            3->R.id.navigation_news
+            4->R.id.navigation_my
+            else -> -1
+        }
+
     }
     //endregion
 

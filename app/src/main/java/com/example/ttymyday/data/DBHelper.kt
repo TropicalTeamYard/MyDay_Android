@@ -115,11 +115,13 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
 //        scheduleTag.permission?:contentValues.put("permission",scheduleTag.permission)
 
         if (contentValues.size() > 0){
-            if (scheduleTag.id == -1 ){
-                db.insert(NAME_SCHEDULE_TAG,null,contentValues)
+            if (scheduleTag.id == -1L ){
+                val id = db.insert(NAME_SCHEDULE_TAG,null,contentValues)
+                scheduleTag.id = id
             }
             else{
                 db.update(NAME_SCHEDULE_TAG,contentValues,"id = ?", arrayOf(scheduleTag.id.toString()))
+
             }
         }
 
@@ -128,22 +130,8 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         }catch (e:SQLiteException){
             e.printStackTrace()
         }
+
     }
-//
-//    fun printScheduleTag(){
-//        val db:SQLiteDatabase = this.readableDatabase
-//        val cursor = db.rawQuery("select * from $NAME_SCHEDULE_TAG", arrayOf<String>())
-//        Log.d(TAG,"----SCHEDULE_TAG----")
-//        if (cursor.moveToFirst() && cursor.count > 0){
-//            do {
-//                Log.d(TAG,"id:${cursor.getInt(cursor.getColumnIndex("id"))} name:${cursor.getString(cursor.getColumnIndex("name"))} title: ${cursor.getString(cursor.getColumnIndex("title"))} owner: ${cursor.getString(cursor.getColumnIndex("owner"))} permission: ${cursor.getString(cursor.getColumnIndex("permission"))}")
-//
-//            } while (cursor.moveToNext())
-//        }
-//
-//        cursor.close()
-//    }
-//    //endregion
 
     fun getScheduleTagValues():ArrayList<ScheduleTag>{
         val db:SQLiteDatabase = this.readableDatabase
@@ -153,7 +141,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         if (cursor.moveToFirst() && cursor.count > 0){
             do{
                 list.add(ScheduleTag(
-                    cursor.getInt(cursor.getColumnIndex("id")),
+                    cursor.getLong(cursor.getColumnIndex("id")),
                     cursor.getString(cursor.getColumnIndex("name")),
                     cursor.getString(cursor.getColumnIndex("title")),
                     cursor.getString(cursor.getColumnIndex("owner")),
@@ -173,6 +161,35 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         }
 
         return list
+    }
+
+    fun fillScheduleTag(tags:ArrayList<ScheduleTag>){
+        val db:SQLiteDatabase = this.readableDatabase
+        //val list:ArrayList<ScheduleTag> = ArrayList()
+        tags.clear()
+        val cursor = db.rawQuery("select * from $NAME_SCHEDULE_TAG", arrayOf<String>())
+
+        if (cursor.moveToFirst() && cursor.count > 0){
+            do{
+                tags.add(ScheduleTag(
+                    cursor.getLong(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getString(cursor.getColumnIndex("owner")),
+                    cursor.getInt(cursor.getColumnIndex("icon")),
+                    cursor.getString(cursor.getColumnIndex("users")),
+                    cursor.getString(cursor.getColumnIndex("create_time")),
+                    cursor.getString(cursor.getColumnIndex("update_time"))
+                ))
+            }while (cursor.moveToNext())
+        }
+
+        try {
+            cursor.close()
+            db.close()
+        }catch (e:SQLiteException){
+            e.printStackTrace()
+        }
     }
 
     companion object {
