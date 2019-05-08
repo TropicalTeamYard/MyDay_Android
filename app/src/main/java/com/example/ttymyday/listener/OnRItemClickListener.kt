@@ -1,4 +1,4 @@
-package com.example.ttymyday.view.adapter
+package com.example.ttymyday.listener
 
 import android.view.View
 

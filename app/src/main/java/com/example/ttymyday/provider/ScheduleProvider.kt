@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.example.ttymyday.data.DBHelper
 import com.example.ttymyday.model.ScheduleTag
+import com.example.ttymyday.util.TagConst
 import com.example.ttymyday.util.TimeUtil
 import java.util.*
 import kotlin.collections.ArrayList
@@ -32,7 +33,7 @@ class ScheduleProvider(private var context: Context,var tags:ArrayList<ScheduleT
         val helper= DBHelper(context)
         var index = helper.getSettingsValue(DBHelper.SCHEDULE_TAG_INDEX,"-1").toIntOrNull()
         if (index == null){
-            Log.d(DBHelper.TAG,"schedule_tag_index:: 读取出现异常")
+            Log.d(TagConst.SQL,"DBHelper::tag读取读取出现异常")
             index = -1
         }
         index++

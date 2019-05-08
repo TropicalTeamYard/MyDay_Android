@@ -1,7 +1,9 @@
 package com.example.ttymyday.view.page
 
 import android.content.Intent
+import android.net.wifi.p2p.WifiP2pManager
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.annotation.NonNull
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -14,8 +16,15 @@ import com.example.ttymyday.R
 import com.example.ttymyday.R.*
 import com.example.ttymyday.data.DataSource
 import com.example.ttymyday.data.UserUtil
+import com.example.ttymyday.listener.ActionListener
+import com.example.ttymyday.provider.ScheduleProvider
+import com.example.ttymyday.util.TagConst
 import com.example.ttymyday.view.adapter.MainFragmentAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
@@ -30,9 +39,11 @@ class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemS
 
         contentView.addOnPageChangeListener(this)
         navigation.setOnNavigationItemSelectedListener(this)
+
+        DataSource.initAsync(this)
     }
 
-    //events
+    //region events
     override fun onNavigationItemSelected(@NonNull menuItem: MenuItem): Boolean {
         return when(menuItem.itemId){
             R.id.navigation_home->{
@@ -67,7 +78,7 @@ class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemS
     }
 
     override fun onPageSelected(p0: Int) {
-
+        Log.d(TagConst.UI,"main::页面第${p0}项被选中")
 
         tbx_main_title.text = when(p0){
             0-> getString(R.string.title_home)
@@ -90,7 +101,5 @@ class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemS
     }
     //endregion
 
-    companion object{
-        val TAG:String = "MainActivity"
-    }
+
 }

@@ -19,12 +19,14 @@ import com.example.ttymyday.R
 import com.example.ttymyday.data.DataSource
 import com.example.ttymyday.provider.ScheduleProvider
 import com.example.ttymyday.util.NameLengthFilter
+import com.example.ttymyday.util.TagConst
 import com.example.ttymyday.view.adapter.IconAdapter
-import com.example.ttymyday.view.adapter.OnRItemClickListener
+import com.example.ttymyday.listener.OnRItemClickListener
 import com.example.ttymyday.view.converter.ColorIconConverter
 import kotlinx.android.synthetic.main.add_schedule_book_fragment.*
 
-class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemClickListener,TextWatcher{
+class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,
+    OnRItemClickListener,TextWatcher{
 
     private var mListener:DialogInterface.OnDismissListener? = null
 
@@ -50,7 +52,7 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemCl
     private var selectedIndex:Int = 0
 
     override fun onItemClick(v: View?, position: Int) {
-        Log.d(TAG,"你点击了第 ${position}个图标")
+        Log.d(TagConst.UI,"你点击了第 ${position}个图标")
         selectedIndex = position
         img_icon_add_schedule_book.setImageResource(ColorIconConverter().getIconRes(selectedIndex))
     }
@@ -64,8 +66,10 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemCl
                 val provider = ScheduleProvider(context!!,DataSource.tags)
                 val tag = provider.createScheduleTag(selectedIndex,edt_title_add_schedule_book.text.toString())
 
-                Log.d(TAG,"添加了一条日程清单: $tag")
+                Log.d(TagConst.DATA,"添加了一条日程清单: $tag")
                 dialog.dismiss()
+
+                mListener?.onDismiss(dialog)
             }
         }
     }
@@ -103,7 +107,7 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemCl
 
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        mListener?.onDismiss(dialog)
+        //mListener?.onDismiss(dialog)
     }
 
     private fun init(){
@@ -117,7 +121,4 @@ class AddScheduleBookFragment : DialogFragment(),View.OnClickListener ,OnRItemCl
         edt_title_add_schedule_book.addTextChangedListener(this)
     }
 
-    companion object {
-        const val TAG = "ADSC"
-    }
 }

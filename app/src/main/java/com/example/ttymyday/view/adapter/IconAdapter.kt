@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.ttymyday.R
+import com.example.ttymyday.listener.OnRItemClickListener
 import com.example.ttymyday.view.converter.IconConverter
 import kotlinx.android.synthetic.main.sample_icon_view.view.*
 
@@ -36,7 +37,7 @@ class IconAdapter(var converter:IconConverter): RecyclerView.Adapter<IconAdapter
         mListener = listener
     }
 
-    inner class ViewHolder(v: View,var listener:OnRItemClickListener?):RecyclerView.ViewHolder(v),View.OnClickListener{
+    inner class ViewHolder(v: View,var listener: OnRItemClickListener?):RecyclerView.ViewHolder(v),View.OnClickListener{
         override fun onClick(v: View?) {
             listener?.onItemClick(v,layoutPosition)
         }

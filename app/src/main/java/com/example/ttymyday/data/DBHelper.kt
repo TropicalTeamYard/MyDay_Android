@@ -193,7 +193,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
     }
 
     companion object {
-        const val TAG = "DBH"
         private const val DB_NAME = "myday.db"
         private const val DB_VERSION=1
 

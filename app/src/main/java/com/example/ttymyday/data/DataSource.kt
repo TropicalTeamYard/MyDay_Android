@@ -1,7 +1,17 @@
 package com.example.ttymyday.data
 
 import android.content.Context
+import android.provider.Contacts
+import android.support.annotation.UiThread
+import android.util.Log
+import com.example.ttymyday.listener.ActionListener
 import com.example.ttymyday.model.ScheduleTag
+import com.example.ttymyday.provider.ScheduleProvider
+import com.example.ttymyday.util.TagConst
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object DataSource
 {
@@ -26,6 +36,8 @@ object DataSource
      */
     var tags:ArrayList<ScheduleTag> = ArrayList()
 
+    var mListener: ActionListener? = null
+
     fun loadUser(context:Context) {
         val dbHelper = DBHelper(context)
         user.usertype = dbHelper.getSettingsValue("usertype","#NONE")
@@ -42,26 +54,22 @@ object DataSource
         dbHelper.setSettingsValue("token", user.token)
     }
 
-    /**
-     * 创建一个日程的标签，依赖 settings::schedule_tag_index 和 user.username
-     * @param title 日程的标签名
-     */
-//    fun createScheduleTag(context:Context,title:String,owner:String? = null):ScheduleTag{
-//        val dbHelper = DBHelper.getInstance(context)
-//
-//        //currentIndex 用于统计当前用户日程清单的索引号[或数量]
-//
-//        //Log.d("DataSource",dbHelper.getSettingsValue("schedule_tag_index","0"))
-//
-//        var currentIndex = dbHelper.getSettingsValue("schedule_tag_index","0").toInt()
-//        currentIndex +=1
-//
-//        val scheduleTag = ScheduleTag(-1,"category_$currentIndex",title,(owner?: user.friendname),"owner")
-//
-//        dbHelper.setScheduleTagValue(scheduleTag)
-//        dbHelper.setSettingsValue("schedule_tag_index",currentIndex.toString())
-//
-//        return scheduleTag
-//    }
+    fun setOnInitCompletedListener(listener: ActionListener){
+        mListener = listener;
+    }
 
+    fun initAsync(context:Context){
+        //TODO("异步加载数据")
+        //Log.d(TagConst.DATA, "data::正在异步加载资源")
+
+        val provider: ScheduleProvider = ScheduleProvider(context, DataSource.tags)
+        if (!DataSource.isTagsLoaded) {
+            DataSource.isTagsLoaded = true
+            provider.initialize()
+        }
+
+        //Log.d(TagConst.DATA, "data::异步加载资源完毕")
+    }
 }
+
+
