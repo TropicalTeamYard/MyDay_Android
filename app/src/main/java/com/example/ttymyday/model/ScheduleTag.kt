@@ -5,7 +5,7 @@ data class ScheduleTag(var id:Long,
                        var title:String?,
                        var owner:String?,
                        var icon:Int?,
-                       var users:String?,
-                       var create_time:String?,
-                       var update_time:String?,
-                       var alarm_count:Int = 0)
+                       var alarm_count:Int = 0,
+                       var users:String? = null,
+                       var create_time:String? = null,
+                       var update_time:String? = null)

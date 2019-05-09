@@ -4,122 +4,44 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".view.page.ScheduleFragment">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".view.page.ScheduleFragment">
+            android:orientation="vertical">
+        <com.example.ttymyday.view.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:display_title="智能清单">
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="44dp"
+                    android:id="@+id/recyclerView_auto_tag"/>
+        </com.example.ttymyday.view.widget.CardView>
         <com.example.ttymyday.view.widget.CardView
                 android:id="@+id/card_my_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:display_title="我的日程清单">
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                app:display_title="@string/title_mySchedule">
             <!--展示内容的容器-->
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="44dp"
                     android:orientation="vertical">
-                <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView_schedule_tag"
+                <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                <!--<FrameLayout-->
-                <!--android:id="@+id/test_schedule_item1"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingStart="16dp"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingVertical="4dp"-->
-                <!--android:clickable="true"-->
-                <!--android:background="?attr/selectableItemBackground">-->
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="horizontal">-->
-                <!--<ImageView-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:padding="8dp"-->
-                <!--android:src="@drawable/ic_color_info"/>-->
-                <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_marginStart="16dp"-->
-                <!--android:textSize="16sp"-->
-                <!--android:textColor="@color/colorPrimaryDark"-->
-                <!--android:text="学习"-->
-                <!--android:gravity="center_vertical"/>-->
-                <!--<ImageView-->
-                <!--android:layout_width="16dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:tint="@color/colorDisplay"-->
-                <!--android:src="@drawable/ic_notifications_black_24dp"-->
-                <!--/>-->
-                <!--<TextView-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:layout_marginStart="4dp"-->
-                <!--android:text="99+"/>-->
-                <!--<ImageView-->
-                <!--android:layout_width="32dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:tint="@color/colorDisplay"-->
-                <!--android:padding="6dp"-->
-                <!--android:src="@drawable/ic_chevron_right_black_24dp"-->
-                <!--android:gravity="center"/>-->
-                <!--</LinearLayout>-->
-                <!--</FrameLayout>-->
-                <!--<FrameLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingStart="16dp"-->
-                <!--android:paddingEnd="0dp"-->
-                <!--android:paddingVertical="4dp">-->
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="horizontal">-->
-                <!--<ImageView-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:padding="8dp"-->
-                <!--android:tint="@color/colorPrimary"-->
-                <!--android:src="@drawable/ic_timelapse_black_24dp"/>-->
-                <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_marginStart="16dp"-->
-                <!--android:textSize="16sp"-->
-                <!--android:textColor="@color/colorPrimaryDark"-->
-                <!--android:text="重要日程"-->
-                <!--android:gravity="center_vertical"/>-->
-                <!--<ImageView-->
-                <!--android:layout_width="16dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:tint="@color/colorDisplay"-->
-                <!--android:src="@drawable/ic_notifications_black_24dp"-->
-                <!--/>-->
-                <!--<TextView-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:layout_marginStart="4dp"-->
-                <!--android:text="12+"/>-->
-                <!--<ImageView-->
-                <!--android:layout_width="32dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:tint="@color/colorDisplay"-->
-                <!--android:padding="6dp"-->
-                <!--android:src="@drawable/ic_chevron_right_black_24dp"-->
-                <!--android:gravity="center"/>-->
-                <!--</LinearLayout>-->
-                <!--</FrameLayout>-->
+                        android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerView_schedule_tag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
                 <FrameLayout
                         android:id="@+id/btn_schedule_add_book"
                         android:layout_width="match_parent"
@@ -135,10 +57,27 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:text="@string/text_add_schedulebook"/>
+                                android:text="@string/text_add_scheduleBook"/>
                     </FrameLayout>
                 </FrameLayout>
             </LinearLayout>
+        </com.example.ttymyday.view.widget.CardView>
+        <com.example.ttymyday.view.widget.CardView
+                android:id="@+id/card_shared_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="32dp"
+                app:display_title="@string/title_sharedSchedule">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="44dp">
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_shared_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
         </com.example.ttymyday.view.widget.CardView>
     </LinearLayout>
 </ScrollView>

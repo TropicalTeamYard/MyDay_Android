@@ -146,6 +146,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                     cursor.getString(cursor.getColumnIndex("title")),
                     cursor.getString(cursor.getColumnIndex("owner")),
                     cursor.getInt(cursor.getColumnIndex("icon")),
+                    0,
                     cursor.getString(cursor.getColumnIndex("users")),
                     cursor.getString(cursor.getColumnIndex("create_time")),
                     cursor.getString(cursor.getColumnIndex("update_time"))
@@ -177,6 +178,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                     cursor.getString(cursor.getColumnIndex("title")),
                     cursor.getString(cursor.getColumnIndex("owner")),
                     cursor.getInt(cursor.getColumnIndex("icon")),
+                    0,
                     cursor.getString(cursor.getColumnIndex("users")),
                     cursor.getString(cursor.getColumnIndex("create_time")),
                     cursor.getString(cursor.getColumnIndex("update_time"))

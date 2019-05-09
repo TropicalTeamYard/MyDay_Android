@@ -1,17 +1,10 @@
 package com.example.ttymyday.data
 
 import android.content.Context
-import android.provider.Contacts
-import android.support.annotation.UiThread
-import android.util.Log
 import com.example.ttymyday.listener.ActionListener
 import com.example.ttymyday.model.ScheduleTag
 import com.example.ttymyday.provider.ScheduleProvider
-import com.example.ttymyday.util.TagConst
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.ttymyday.view.converter.ColorIconConverter
 
 object DataSource
 {
@@ -35,6 +28,8 @@ object DataSource
      * 临时缓存-日程标签
      */
     var tags:ArrayList<ScheduleTag> = ArrayList()
+    var autoTags:ArrayList<ScheduleTag> = ArrayList()
+    var sharedTags:ArrayList<ScheduleTag> = ArrayList()
 
     var mListener: ActionListener? = null
 
@@ -59,8 +54,17 @@ object DataSource
     }
 
     fun initAsync(context:Context){
-        //TODO("异步加载数据")
+        //TODO("异步加载数据与资源")
         //Log.d(TagConst.DATA, "data::正在异步加载资源")
+        autoTags.add(ScheduleTag(-1,"clockIn","打卡",null,ColorIconConverter.FAVUSER,10))
+        autoTags.add(ScheduleTag(-1,"memory","生日&纪念日",null,ColorIconConverter.MEDAL,4))
+        autoTags.add(ScheduleTag(-1,"important","重要",null,ColorIconConverter.MEDICINE,3))
+        autoTags.add(ScheduleTag(-1,"table","课程表",null,ColorIconConverter.VISITOR,9))
+
+        sharedTags.add(ScheduleTag(-1,"clockIn","Item1",null,ColorIconConverter.FAVUSER))
+        sharedTags.add(ScheduleTag(-1,"memory","Item2",null,ColorIconConverter.MEDAL))
+        sharedTags.add(ScheduleTag(-1,"important","Item3",null,ColorIconConverter.CONCAT))
+        sharedTags.add(ScheduleTag(-1,"table","Item4",null,ColorIconConverter.VISITOR))
 
         val provider: ScheduleProvider = ScheduleProvider(context, DataSource.tags)
         if (!DataSource.isTagsLoaded) {

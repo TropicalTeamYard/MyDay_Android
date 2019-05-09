@@ -18,7 +18,6 @@ class ScheduleTagAdapter(var tags:ArrayList<ScheduleTag>,var converter:IconConve
     //lateinit var tags:ArrayList<ScheduleTag>
     var mListener: OnRItemClickListener? = null
 
-
     lateinit var context: Context
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
@@ -51,6 +50,11 @@ class ScheduleTagAdapter(var tags:ArrayList<ScheduleTag>,var converter:IconConve
     class ViewHolder(v: View,var listener: OnRItemClickListener?):RecyclerView.ViewHolder(v),View.OnClickListener{
         override fun onClick(v: View?) {
             listener?.onItemClick(v,layoutPosition)
+        }
+
+        //SOLVED BUG 解决了点击无事件的问题
+        init {
+            v.setOnClickListener(this)
         }
 
         var root:LinearLayout = v.rootView as LinearLayout

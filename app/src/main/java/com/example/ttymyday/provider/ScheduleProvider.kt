@@ -38,7 +38,7 @@ class ScheduleProvider(private var context: Context,var tags:ArrayList<ScheduleT
         }
         index++
 
-        val scheduleTag = ScheduleTag(-1,"#LOCAL.$index",title,"#LOCAL",icon,"",TimeUtil.toDateTimeString(Date()),TimeUtil.toDateTimeString(Date()))
+        val scheduleTag = ScheduleTag(-1,"#LOCAL.$index",title,"#LOCAL",icon,0,"",TimeUtil.toDateTimeString(Date()),TimeUtil.toDateTimeString(Date()))
         //请求数据库添加一条记录
         helper.setScheduleTagValue(scheduleTag)
 
