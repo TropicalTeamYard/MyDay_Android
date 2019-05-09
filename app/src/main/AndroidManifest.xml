@@ -12,7 +12,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
+        <activity android:name=".view.page.NormalScheduleActivity">
+        </activity>
         <activity android:name=".view.page.UserDetailActivity">
         </activity>
         <activity android:name=".view.page.LoginActivity">
