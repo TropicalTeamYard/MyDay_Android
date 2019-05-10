@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".view.page.LoginActivity">
         </activity>
-        <activity android:name=".view.page.MainActivity">
+        <activity android:name=".view.page.MainActivity" android:launchMode="singleTask">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

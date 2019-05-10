@@ -1,6 +1,7 @@
 package com.example.ttymyday.view.page
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.sample_card_view.view.*
 import java.util.*
 
 
-class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener, DialogInterface.OnDismissListener,ActionListener,SwiftTouchHelperCallBack.OnItemTouchCallBackListener<ScheduleTagAdapter.ViewHolder>{
+class ScheduleFragment : Fragment(),View.OnClickListener, DialogInterface.OnDismissListener,ActionListener,SwiftTouchHelperCallBack.OnItemTouchCallBackListener<ScheduleTagAdapter.ViewHolder>{
 
     private var rItemListener = RItemListener()
     private var autoRItemListener = AutoRItemListener()
@@ -91,18 +92,23 @@ class ScheduleFragment : Fragment(),View.OnClickListener,OnRItemClickListener, D
         //recyclerView_schedule_tag.adapter!!.notifyDataSetChanged()
     }
 
-    override fun onItemClick(v: View?, position: Int) {
-        Log.d(TagConst.UI,"item_click:: 你点击了第${position}个清单")
-    }
-
     inner class RItemListener:OnRItemClickListener{
         override fun onItemClick(v: View?, position: Int) {
             Log.d(TagConst.UI,"item_click:: 你点击了第${position}个清单")
+            //跳转界面
+            val bundle = Bundle()
+            bundle.putLong("ID",DataSource.tags[position].id)
+
+            val intent= Intent(context,NormalScheduleActivity::class.java)
+            intent.putExtras(bundle)
+            startActivity(intent)
+
         }
     }
 
     inner class AutoRItemListener:OnRItemClickListener{
         override fun onItemClick(v: View?, position: Int) {
+
             Log.d(TagConst.UI,"auto_item_click:: 你点击了第${position}个清单")
         }
     }
