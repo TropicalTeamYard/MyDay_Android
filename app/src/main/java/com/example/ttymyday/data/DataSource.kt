@@ -41,13 +41,8 @@ object DataSource
     var displayTable:String ="高数  7:00"
     //endregion
 
-<<<<<<< HEAD
     var scheduleMap = HashMap<String,ScheduleItemCollection>()
 
-//    var mListener: ActionListener? = null
-=======
-    var mListener: ActionListener? = null
->>>>>>> parent of 320824d... 修复回复Activity导致数据没被加载的问题
 
     fun loadUser(context:Context) {
         val dbHelper = DBHelper(context)
@@ -63,10 +58,6 @@ object DataSource
         dbHelper.setSettingsValue("username", user.username)
         dbHelper.setSettingsValue("nickname", user.nickname)
         dbHelper.setSettingsValue("token", user.token)
-    }
-
-    fun setOnInitCompletedListener(listener: ActionListener){
-        mListener = listener;
     }
 
     fun initAsync(context:Context){

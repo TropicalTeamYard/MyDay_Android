@@ -72,7 +72,6 @@ class ScheduleFragment : Fragment(),View.OnClickListener, DialogInterface.OnDism
         val sharedTouchHelper = ItemTouchHelper(SwiftTouchHelperCallBack<ScheduleTagAdapter.ViewHolder>(sharedMoveItemListener))
         sharedTouchHelper.attachToRecyclerView(sharedRecyclerView)
 
-        DataSource.setOnInitCompletedListener(this)
         btn_schedule_add_book.setOnClickListener(this)
 
         updateItemState()
