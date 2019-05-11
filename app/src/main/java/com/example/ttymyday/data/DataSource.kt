@@ -41,9 +41,7 @@ object DataSource
     var displayTable:String ="高数  7:00"
     //endregion
 
-    var scheduleMap = HashMap<String,ScheduleItemCollection>()
-
-//    var mListener: ActionListener? = null
+    var mListener: ActionListener? = null
 
     var mListener: ActionListener? = null
 
@@ -87,11 +85,6 @@ object DataSource
                 DataSource.isTagsLoaded = true
                 provider.initialize()
             }
-
-            val scheduleItemCollection = ScheduleItemCollection()
-            scheduleItemCollection.data.add(ScheduleItem("test","Hello1"))
-            scheduleItemCollection.data.add(ScheduleItem("test","Hello2"))
-            scheduleItemCollection.data.add(ScheduleItem("test","Hello3"))
 
             scheduleMap["item1"] = scheduleItemCollection
             //Log.d(TagConst.DATA, "data::异步加载资源完毕")

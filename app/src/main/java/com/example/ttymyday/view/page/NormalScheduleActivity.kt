@@ -58,11 +58,14 @@ class NormalScheduleActivity : AppCompatActivity(), View.OnClickListener,OnRItem
         //TODO("重写读取数据集的逻辑")
         val adapter = ScheduleItemAdapter(DataSource.scheduleMap["item1"]!!)
 
+<<<<<<< HEAD
         recyclerView_item.adapter = adapter;
         recyclerView_item.layoutManager = LinearLayoutManager(this,1,false)
 
         adapter.setOnRItemClickListener(this)
 
+=======
+>>>>>>> parent of 320824d... 修复回复Activity导致数据没被加载的问题
         img_back_normal_schedule.setOnClickListener(this)
     }
 
