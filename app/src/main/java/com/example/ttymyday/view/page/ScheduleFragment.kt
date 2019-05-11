@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.sample_card_view.view.*
 import java.util.*
 
 
-class ScheduleFragment : Fragment(),View.OnClickListener, DialogInterface.OnDismissListener,ActionListener,SwiftTouchHelperCallBack.OnItemTouchCallBackListener<ScheduleTagAdapter.ViewHolder>{
+class ScheduleFragment : Fragment(),View.OnClickListener, DialogInterface.OnDismissListener,SwiftTouchHelperCallBack.OnItemTouchCallBackListener<ScheduleTagAdapter.ViewHolder>{
 
     private var rItemListener = RItemListener()
     private var autoRItemListener = AutoRItemListener()
@@ -72,18 +72,18 @@ class ScheduleFragment : Fragment(),View.OnClickListener, DialogInterface.OnDism
         val sharedTouchHelper = ItemTouchHelper(SwiftTouchHelperCallBack<ScheduleTagAdapter.ViewHolder>(sharedMoveItemListener))
         sharedTouchHelper.attachToRecyclerView(sharedRecyclerView)
 
-        DataSource.setOnInitCompletedListener(this)
+        //DataSource.setOnInitCompletedListener(this)
         btn_schedule_add_book.setOnClickListener(this)
 
         updateItemState()
     }
 
     //region events
-    override fun action() {
-        Log.d(TagConst.UI,"f::通知adapter更新数据${DataSource.tags.count()}")
-        recyclerView_schedule_tag.adapter!!.notifyDataSetChanged()
-        updateItemState()
-    }
+//    override fun action() {
+//        Log.d(TagConst.UI,"f::通知adapter更新数据${DataSource.tags.count()}")
+//        recyclerView_schedule_tag.adapter!!.notifyDataSetChanged()
+//        updateItemState()
+//    }
 
     override fun onDismiss(dialog: DialogInterface?) {
         Log.d(TagConst.UI,"dialog::正确关闭对话框")
