@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TtyMyday.iml" filepath="$PROJECT_DIR$/TtyMyday.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyDay_Android.iml" filepath="$PROJECT_DIR$/MyDay_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/tty.myday.android.iml" filepath="$PROJECT_DIR$/.idea/tty.myday.android.iml" />
     </modules>
   </component>
 </project>
