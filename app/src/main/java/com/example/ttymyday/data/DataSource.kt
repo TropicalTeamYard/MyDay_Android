@@ -41,17 +41,11 @@ object DataSource
     var displayTable:String ="高数  7:00"
     //endregion
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     var scheduleMap = HashMap<String,ScheduleItemCollection>()
 
 //    var mListener: ActionListener? = null
-=======
+
     var mListener: ActionListener? = null
->>>>>>> parent of 320824d... 修复回复Activity导致数据没被加载的问题
-=======
-    var mListener: ActionListener? = null
->>>>>>> parent of 320824d... 修复回复Activity导致数据没被加载的问题
 
     fun loadUser(context:Context) {
         val dbHelper = DBHelper(context)
@@ -93,7 +87,6 @@ object DataSource
                 DataSource.isTagsLoaded = true
                 provider.initialize()
             }
-<<<<<<< HEAD
 
             val scheduleItemCollection = ScheduleItemCollection()
             scheduleItemCollection.data.add(ScheduleItem("test","Hello1"))
@@ -101,9 +94,6 @@ object DataSource
             scheduleItemCollection.data.add(ScheduleItem("test","Hello3"))
 
             scheduleMap["item1"] = scheduleItemCollection
-=======
->>>>>>> parent of 320824d... 修复回复Activity导致数据没被加载的问题
-
             //Log.d(TagConst.DATA, "data::异步加载资源完毕")
         }
     }
