@@ -61,7 +61,7 @@ object DataSource
         dbHelper.setSettingsValue("token", user.token)
     }
 
-    fun initAsync(context:Context){
+    fun initIfNotLoadAsync(context:Context){
         if (!isLoad){
             Log.d(TagConst.DATA,"正在加载必须的资源")
             isLoad =true
