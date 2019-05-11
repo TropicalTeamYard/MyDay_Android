@@ -1,15 +1,19 @@
 package com.example.ttymyday.data
 
 import android.content.Context
+import android.util.Log
 import com.example.ttymyday.listener.ActionListener
 import com.example.ttymyday.model.ScheduleItem
 import com.example.ttymyday.model.ScheduleItemCollection
 import com.example.ttymyday.model.ScheduleTag
 import com.example.ttymyday.provider.ScheduleProvider
+import com.example.ttymyday.util.TagConst
 import com.example.ttymyday.view.converter.ColorIconConverter
 
 object DataSource
 {
+    var isLoad = false
+
     /**
      * 临时缓存-用户信息
      */
@@ -22,10 +26,7 @@ object DataSource
      * 临时缓存-用户状态
      */
     var userstate:Boolean = true
-
-    var isLoad = false
-
-    var isTagsLoaded = false
+    //var isTagsLoaded = false
     /**
      * 临时缓存-日程标签
      */
@@ -62,6 +63,7 @@ object DataSource
 
     fun initAsync(context:Context){
         if (!isLoad){
+            Log.d(TagConst.DATA,"正在加载必须的资源")
             isLoad =true
             //TODO("异步加载数据与资源")
             //Log.d(TagConst.DATA, "data::正在异步加载资源")
@@ -76,10 +78,7 @@ object DataSource
             sharedTags.add(ScheduleTag(-1,"table","Item4",null,ColorIconConverter.VISITOR))
 
             val provider: ScheduleProvider = ScheduleProvider(context, DataSource.tags)
-            if (!DataSource.isTagsLoaded) {
-                DataSource.isTagsLoaded = true
-                provider.initialize()
-            }
+            provider.initialize()
 
             val scheduleItemCollection = ScheduleItemCollection()
             scheduleItemCollection.data.add(ScheduleItem("test","Hello1"))
