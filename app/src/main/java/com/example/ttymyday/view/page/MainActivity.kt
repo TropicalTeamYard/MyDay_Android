@@ -1,18 +1,31 @@
 package com.example.ttymyday.view.page
 
+import android.content.Intent
+import android.net.wifi.p2p.WifiP2pManager
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.annotation.NonNull
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import com.example.ttymyday.R
 import com.example.ttymyday.R.*
 import com.example.ttymyday.data.DataSource
+import com.example.ttymyday.data.UserUtil
+import com.example.ttymyday.listener.ActionListener
+import com.example.ttymyday.provider.ScheduleProvider
 import com.example.ttymyday.util.TagConst
 import com.example.ttymyday.view.adapter.MainFragmentAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
 
@@ -28,7 +41,7 @@ class MainActivity : AppCompatActivity() ,BottomNavigationView.OnNavigationItemS
         contentView.addOnPageChangeListener(this)
         navigation.setOnNavigationItemSelectedListener(this)
 
-        DataSource.initIfNotLoadAsync(this)
+        DataSource.initAsync(this)
     }
 
     //region events
