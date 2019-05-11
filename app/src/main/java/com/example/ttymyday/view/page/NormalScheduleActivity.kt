@@ -28,6 +28,10 @@ class NormalScheduleActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_normal_schedule)
 
+        img_back_normal_schedule.setOnClickListener(this)
+        //防止回收后出现空指针异常的问题
+        DataSource.initIfNotLoadAsync(this)
+
         if (intent.extras!=null){
             val bundle:Bundle = intent.extras!!
             val id = bundle.getLong("ID")
@@ -49,7 +53,6 @@ class NormalScheduleActivity : AppCompatActivity(), View.OnClickListener {
         }
 
 
-        img_back_normal_schedule.setOnClickListener(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
