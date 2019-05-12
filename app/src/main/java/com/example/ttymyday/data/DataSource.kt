@@ -40,7 +40,8 @@ object DataSource
     var displayTable:String ="高数  7:00"
     //endregion
 
-//    var mListener: ActionListener? = null
+    var scheduleMap = HashMap<String,ScheduleItemCollection>()
+
 
     fun loadUser(context:Context) {
         val dbHelper = DBHelper(context)
@@ -58,12 +59,7 @@ object DataSource
         dbHelper.setSettingsValue("token", user.token)
     }
 
-//    fun setOnInitCompletedListener(listener: ActionListener){
-//        mListener = listener;
-//    }
-
     fun initIfNotLoadAsync(context:Context){
-        //缓存保护措施，防止多次加载
         if (!isLoad){
             Log.d(TagConst.DATA,"正在加载必须的资源")
             isLoad =true
