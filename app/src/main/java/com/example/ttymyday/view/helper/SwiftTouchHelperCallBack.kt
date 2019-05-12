@@ -29,21 +29,21 @@ class SwiftTouchHelperCallBack<TV:RecyclerView.ViewHolder>(var listener:OnItemTo
     }
 
     override fun onMove(p0: RecyclerView, p1: RecyclerView.ViewHolder, p2: RecyclerView.ViewHolder): Boolean {
-        listener?.onMove(p1.adapterPosition,p2.adapterPosition)
+        listener.onMove(p1.adapterPosition,p2.adapterPosition)
         return false
     }
 
     override fun onSwiped(p0: RecyclerView.ViewHolder, p1: Int) {
-        listener?.onSwiped(p0.adapterPosition)
+        listener.onSwiped(p0.adapterPosition)
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        listener?.onSelectedChanged(viewHolder as TV?,actionState)
+        listener.onSelectedChanged(viewHolder as TV?,actionState)
         super.onSelectedChanged(viewHolder, actionState)
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        listener?.clearView(recyclerView,viewHolder as TV)
+        listener.clearView(recyclerView,viewHolder as TV)
         super.clearView(recyclerView, viewHolder)
     }
 

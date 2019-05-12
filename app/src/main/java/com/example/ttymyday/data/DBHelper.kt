@@ -33,7 +33,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
     fun getSettingsValue(name:String, default:String):String{
         val db:SQLiteDatabase = this.readableDatabase
         val cursor = db.rawQuery("select * from $NAME_NAME_VALUE where name=?", arrayOf(name))
-        var v:String = ""
+        var v = ""
         if (cursor.moveToFirst() && cursor.count > 0){
             //BUG 找到了一处非常奇怪的bug，导致读取错误的设置信息
             v = cursor.getString(cursor.getColumnIndex("value"))

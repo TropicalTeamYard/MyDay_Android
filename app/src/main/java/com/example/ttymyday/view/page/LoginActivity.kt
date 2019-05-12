@@ -19,19 +19,19 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
             val password:String = tbx_password.text.toString();
 
             if (account != "" && password!= ""){
-                val data:String = "method=login&username=$account&password=${MD5Util.getMd5(password)}&devicetype=mobile"
+                val data = "method=login&username=$account&password=${MD5Util.getMd5(password)}&devicetype=mobile"
                 Log.d(TAG,"登录,,url:${API.getRoute(RegionParam.USER)},data:$data")
                 AsyncTask.post(API.getRoute(RegionParam.USER),data) {
                     if (it==null){
                         DataSource.state = false
                     } else{
                         DataSource.state = true
-                        val responceJson:JSONObject = JSONObject(it)
-                        val code:Int = responceJson.getInt("code")
-                        val msg:String = responceJson.getString("msg")
+                        val responseJson = JSONObject(it)
+                        val code:Int = responseJson.getInt("code")
+                        val msg:String = responseJson.getString("msg")
                         //说明登录成功
                         if(code == 200){
-                            val _data:JSONObject = responceJson.getJSONObject("data")
+                            val _data:JSONObject = responseJson.getJSONObject("data")
                             val username:String = _data.getString("username")
                             val nickname:String = _data.getString("nickname")
                             val token:String = _data.getString("credit")
@@ -71,6 +71,6 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
     }
 
     companion object {
-        val TAG:String = "LoginActivity"
+        const val TAG:String = "LoginActivity"
     }
 }
