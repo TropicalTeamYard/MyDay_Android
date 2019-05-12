@@ -3,6 +3,7 @@ package com.example.ttymyday.data
 import android.content.Context
 import android.util.Log
 import com.example.ttymyday.listener.ActionListener
+import com.example.ttymyday.model.ScheduleItemCollection
 import com.example.ttymyday.model.ScheduleTag
 import com.example.ttymyday.provider.ScheduleProvider
 import com.example.ttymyday.util.TagConst
@@ -40,7 +41,7 @@ object DataSource
     var displayTable:String ="高数  7:00"
     //endregion
 
-    var scheduleMap = HashMap<String,ScheduleItemCollection>()
+    var scheduleMap = HashMap<String, ScheduleItemCollection>()
 
 
     fun loadUser(context:Context) {
